@@ -1,83 +1,63 @@
-void merge(int array[], int const left, 
-           int const mid, int const right)
-{
+// Función para fusionar dos subarreglos de array[].
+// El primer subarreglo es array[left..mid]
+// El segundo subarreglo es array[mid+1..right]
+void merge(int array[], int const left, int const mid, int const right) {
+    // Tamaños de los dos subarreglos que se van a fusionar
     auto const subArrayOne = mid - left + 1;
     auto const subArrayTwo = right - mid;
  
-    // Create temp arrays
-    auto *leftArray = new int[subArrayOne],
-         *rightArray = new int[subArrayTwo];
+    // Crear arreglos temporales
+    auto *leftArray = new int[subArrayOne], *rightArray = new int[subArrayTwo];
  
-    // Copy data to temp arrays leftArray[] 
-    // and rightArray[]
+    // Copiar datos a los arreglos temporales leftArray[] y rightArray[]
     for (auto i = 0; i < subArrayOne; i++)
         leftArray[i] = array[left + i];
     for (auto j = 0; j < subArrayTwo; j++)
         rightArray[j] = array[mid + 1 + j];
  
-    // Initial index of first sub-array
-    // Initial index of second sub-array
-    auto indexOfSubArrayOne = 0, 
-         indexOfSubArrayTwo = 0; 
+    // Índices iniciales de los primeros y segundos subarreglos
+    auto indexOfSubArrayOne = 0, indexOfSubArrayTwo = 0;
+    int indexOfMergedArray = left; // Índice inicial del arreglo fusionado
  
-    // Initial index of merged array
-    int indexOfMergedArray = left; 
- 
-    // Merge the temp arrays back into 
-    // array[left..right]
-    while (indexOfSubArrayOne < subArrayOne && 
-           indexOfSubArrayTwo < subArrayTwo) 
-    {
-        if (leftArray[indexOfSubArrayOne] <= 
-            rightArray[indexOfSubArrayTwo]) 
-        {
-            array[indexOfMergedArray] = 
-            leftArray[indexOfSubArrayOne];
+    // Fusionar los arreglos temporales de nuevo en array[left..right]
+    while (indexOfSubArrayOne < subArrayOne && indexOfSubArrayTwo < subArrayTwo) {
+        if (leftArray[indexOfSubArrayOne] <= rightArray[indexOfSubArrayTwo]) {
+            array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
             indexOfSubArrayOne++;
-        }
-        else
-        {
-            array[indexOfMergedArray] = 
-            rightArray[indexOfSubArrayTwo];
+        } else {
+            array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
             indexOfSubArrayTwo++;
         }
         indexOfMergedArray++;
     }
-     
-    // Copy the remaining elements of
-    // left[], if there are any
-    while (indexOfSubArrayOne < subArrayOne) 
-    {
-        array[indexOfMergedArray] = 
-        leftArray[indexOfSubArrayOne];
+ 
+    // Copiar los elementos restantes de leftArray[], si los hay
+    while (indexOfSubArrayOne < subArrayOne) {
+        array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
         indexOfSubArrayOne++;
         indexOfMergedArray++;
     }
  
-    // Copy the remaining elements of
-    // right[], if there are any
-    while (indexOfSubArrayTwo < subArrayTwo) 
-    {
-        array[indexOfMergedArray] = 
-        rightArray[indexOfSubArrayTwo];
+    // Copiar los elementos restantes de rightArray[], si los hay
+    while (indexOfSubArrayTwo < subArrayTwo) {
+        array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
         indexOfSubArrayTwo++;
         indexOfMergedArray++;
     }
+
+    // Liberar la memoria asignada dinámicamente
+    delete[] leftArray;
+    delete[] rightArray;
 }
  
-// begin is for left index and end is
-// right index of the sub-array
-// of arr to be sorted */
-void mergeSort(int array[], 
-               int const begin, 
-               int const end)
-{
-    // Returns recursively
+// Función principal que implementa Merge Sort
+// array[] es el arreglo a ordenar, begin es el índice izquierdo y end es el índice derecho
+void mergeSort(int array[], int const begin, int const end) {
     if (begin >= end)
-        return; 
- 
-    auto mid = begin + (end - begin) / 2;
-    mergeSort(array, begin, mid);
-    mergeSort(array, mid + 1, end);
-    merge(array, begin, mid, end);
+        return; // Condición base: Si el arreglo tiene un solo elemento o es inválido
+
+    auto mid = begin + (end - begin) / 2; // Calcula el punto medio para dividir el arreglo
+    mergeSort(array, begin, mid); // Ordena la primera mitad
+    mergeSort(array, mid + 1, end); // Ordena la segunda mitad
+    merge(array, begin, mid, end); // Fusiona las dos mitades ordenadas
 }
