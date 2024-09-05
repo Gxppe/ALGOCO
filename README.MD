@@ -9,3 +9,5 @@ Los algortimos utilizados fueron extraidos y adaptados desde Geeks For Geeks:
 [Tim Sort](https://www.geeksforgeeks.org/timsort/)<br>
 
 # Algoritmos de multiplicacion de matrices 
+
+[Algoritmo cubico simple](https://www.geeksforgeeks.org/c-program-multiply-two-matrices/)<br>
