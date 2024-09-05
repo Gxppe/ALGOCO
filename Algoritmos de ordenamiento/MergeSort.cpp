@@ -1,25 +1,31 @@
 // Función para fusionar dos subarreglos de array[].
 // El primer subarreglo es array[left..mid]
 // El segundo subarreglo es array[mid+1..right]
-void merge(int array[], int const left, int const mid, int const right) {
-    // Tamaños de los dos subarreglos que se van a fusionar
+#include <bits/stdc++.h>
+using namespace std;
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void merge(vector<int>& array, int const left, int const mid, int const right) {
+    // Tamaños de los dos subvectores que se van a fusionar
     auto const subArrayOne = mid - left + 1;
     auto const subArrayTwo = right - mid;
- 
-    // Crear arreglos temporales
-    auto *leftArray = new int[subArrayOne], *rightArray = new int[subArrayTwo];
- 
-    // Copiar datos a los arreglos temporales leftArray[] y rightArray[]
+
+    // Crear vectores temporales
+    vector<int> leftArray(subArrayOne), rightArray(subArrayTwo);
+
+    // Copiar datos a los vectores temporales leftArray y rightArray
     for (auto i = 0; i < subArrayOne; i++)
         leftArray[i] = array[left + i];
     for (auto j = 0; j < subArrayTwo; j++)
         rightArray[j] = array[mid + 1 + j];
- 
-    // Índices iniciales de los primeros y segundos subarreglos
-    auto indexOfSubArrayOne = 0, indexOfSubArrayTwo = 0;
-    int indexOfMergedArray = left; // Índice inicial del arreglo fusionado
- 
-    // Fusionar los arreglos temporales de nuevo en array[left..right]
+
+    // Índices iniciales de los primeros y segundos subvectores
+    int indexOfSubArrayOne = 0, indexOfSubArrayTwo = 0;
+    int indexOfMergedArray = left; // Índice inicial del vector fusionado
+
+    // Fusionar los vectores temporales de nuevo en array[left..right]
     while (indexOfSubArrayOne < subArrayOne && indexOfSubArrayTwo < subArrayTwo) {
         if (leftArray[indexOfSubArrayOne] <= rightArray[indexOfSubArrayTwo]) {
             array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
@@ -30,34 +36,83 @@ void merge(int array[], int const left, int const mid, int const right) {
         }
         indexOfMergedArray++;
     }
- 
+
     // Copiar los elementos restantes de leftArray[], si los hay
     while (indexOfSubArrayOne < subArrayOne) {
         array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
         indexOfSubArrayOne++;
         indexOfMergedArray++;
     }
- 
+
     // Copiar los elementos restantes de rightArray[], si los hay
     while (indexOfSubArrayTwo < subArrayTwo) {
         array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
         indexOfSubArrayTwo++;
         indexOfMergedArray++;
     }
-
-    // Liberar la memoria asignada dinámicamente
-    delete[] leftArray;
-    delete[] rightArray;
 }
- 
-// Función principal que implementa Merge Sort
-// array[] es el arreglo a ordenar, begin es el índice izquierdo y end es el índice derecho
-void mergeSort(int array[], int const begin, int const end) {
-    if (begin >= end)
-        return; // Condición base: Si el arreglo tiene un solo elemento o es inválido
 
-    auto mid = begin + (end - begin) / 2; // Calcula el punto medio para dividir el arreglo
+void mergeSort(vector<int>& array, int const begin, int const end) {
+    if (begin >= end)
+        return; // Condición base: Si el vector tiene un solo elemento o es inválido
+
+    auto mid = begin + (end - begin) / 2; // Calcula el punto medio para dividir el vector
     mergeSort(array, begin, mid); // Ordena la primera mitad
     mergeSort(array, mid + 1, end); // Ordena la segunda mitad
     merge(array, begin, mid, end); // Fusiona las dos mitades ordenadas
+}
+
+vector<int> read_input(const string& file_path, int& size) {
+    ifstream file(file_path);
+    vector<int> numbers;
+    if (file.is_open()) {
+        string line;
+        getline(file, line);  // Leer el tamaño
+        size = stoi(line);
+
+        while (getline(file, line)) {
+            istringstream iss(line);
+            int number;
+            while (iss >> number) {
+                numbers.push_back(number);
+            }
+        }
+        file.close();
+    } else {
+        cerr << "No se pudo abrir el archivo." << endl;
+    }
+    return numbers;
+}
+
+int main() {
+    ifstream inputFile("Datasets/Random_sorted.txt"); // Asegúrate de que el archivo 'input.txt' está en el directorio correcto
+    ofstream outputFile("Tiempos Registrados/Random_sorted_insertion_time.txt");
+
+    if (!inputFile.is_open() || !outputFile.is_open()) {
+        cerr << "Error al abrir los archivos." << endl;
+        return 1;
+    }
+
+    int n;
+    while (inputFile >> n) {
+        vector<int> array(n); // Pre-reserva el espacio para el vector
+        
+        for (int &num : array) {
+            inputFile >> num; // Leer directamente en el vector pre-reservado
+        }
+
+        auto start = chrono::high_resolution_clock::now(); // Inicia el cronómetro
+
+        sort(array.begin(), array.end()); // Ordena el arreglo
+
+        auto end = chrono::high_resolution_clock::now(); // Detiene el cronómetro
+        chrono::duration<double, milli> elapsed = end - start; // Calcula el tiempo transcurrido
+
+        outputFile << n << " " << elapsed.count() << endl; // Escribe el resultado en el archivo de salida
+    }
+
+    inputFile.close();
+    outputFile.close();
+
+    return 0;
 }

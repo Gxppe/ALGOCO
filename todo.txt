@@ -1,0 +1,3 @@
+-Usar un valor estatico para el middle sorted
+-generar los mains para cada algoritmo
+-
