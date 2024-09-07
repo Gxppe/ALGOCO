@@ -23,8 +23,8 @@ void insertionSort(vector<int>& arr) {
 
 
 int main() {
-    ifstream inputFile("/home/gxuseppe/Tareasolol/ALGOCO/Datasets/Middle_sorted_sorted.txt"); // Asegúrate de que el archivo 'input.txt' está en el directorio correcto
-    ofstream outputFile("Tiempos Registrados/Middle_sorted_insertion_time.txt");
+    ifstream inputFile("/home/gxuseppe/Tareasolol/ALGOCO/Datasets/Middle_sorted_sorted_70.txt"); // Asegúrate de que el archivo 'input.txt' está en el directorio correcto
+    ofstream outputFile("Tiempos Registrados/Middle_sorted_insertion_time_70.txt");
 
     if (!inputFile.is_open() || !outputFile.is_open()) {
         cerr << "Error al abrir los archivos." << endl;

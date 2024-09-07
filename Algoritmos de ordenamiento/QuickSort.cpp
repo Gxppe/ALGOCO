@@ -37,3 +37,36 @@ void quickSort(vector<int> &vec, int low, int high) {
         quickSort(vec, p + 1, high);
     }
 }
+
+int main() {
+    ifstream inputFile("/home/gxuseppe/Tareasolol/ALGOCO/Datasets/Random_sorted_sorted.txt"); // Asegúrate de que el archivo 'input.txt' está en el directorio correcto
+    ofstream outputFile("Tiempos Registrados/Random_sorted_quick_time.txt");
+
+    if (!inputFile.is_open() || !outputFile.is_open()) {
+        cerr << "Error al abrir los archivos." << endl;
+        return 1;
+    }
+
+    int n;
+    while (inputFile >> n) {
+        vector<int> array(n); // Pre-reserva el espacio para el vector
+        
+        for (int &num : array) {
+            inputFile >> num; // Leer directamente en el vector pre-reservado
+        }
+
+        auto start = chrono::high_resolution_clock::now(); // Inicia el cronómetro
+
+        quickSort(array, 0, n - 1); // Ordena el arreglo
+
+        auto end = chrono::high_resolution_clock::now(); // Detiene el cronómetro
+        chrono::duration<double, milli> elapsed = end - start; // Calcula el tiempo transcurrido
+
+        outputFile << n << " " << elapsed.count() << endl; // Escribe el resultado en el archivo de salida
+    }
+
+    inputFile.close();
+    outputFile.close();
+
+    return 0;
+}

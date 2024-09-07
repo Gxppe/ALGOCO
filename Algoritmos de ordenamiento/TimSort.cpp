@@ -3,7 +3,7 @@ using namespace std;
 const int RUN = 32; 
 
 // Función de ordenación por inserción
-void insertionSort(int arr[], int left, int right) { 
+void insertionSort(vector<int>& arr, int left, int right) { 
     for (int i = left + 1; i <= right; i++) { 
         int temp = arr[i]; 
         int j = i - 1; 
@@ -16,9 +16,10 @@ void insertionSort(int arr[], int left, int right) {
 } 
 
 // Función de combinación (merge)
-void merge(int arr[], int l, int m, int r) { 
+void merge(vector<int>& arr, int l, int m, int r) { 
     int len1 = m - l + 1, len2 = r - m; 
-    int left[len1], right[len2]; 
+    vector<int> left(len1), right(len2); 
+    
     for (int i = 0; i < len1; i++) 
         left[i] = arr[l + i]; 
     for (int i = 0; i < len2; i++) 
@@ -48,7 +49,7 @@ void merge(int arr[], int l, int m, int r) {
 } 
 
 // Función principal para implementar Timsort
-void timSort(int arr[], int n) { 
+void timSort(vector<int>& arr, int n) { 
     for (int i = 0; i < n; i += RUN) 
         insertionSort(arr, i, min((i + RUN - 1), (n - 1))); 
 
@@ -61,3 +62,37 @@ void timSort(int arr[], int n) {
         } 
     } 
 } 
+
+
+int main() {
+    ifstream inputFile("/home/gxuseppe/Tareasolol/ALGOCO/Datasets/Middle_sorted_sorted_70.txt"); // Asegúrate de que el archivo 'input.txt' está en el directorio correcto
+    ofstream outputFile("Tiempos Registrados/Middle_sorted_tim_time_70.txt");
+
+    if (!inputFile.is_open() || !outputFile.is_open()) {
+        cerr << "Error al abrir los archivos." << endl;
+        return 1;
+    }
+
+    int n;
+    while (inputFile >> n) {
+        vector<int> array(n); // Pre-reserva el espacio para el vector
+        
+        for (int &num : array) {
+            inputFile >> num; // Leer directamente en el vector pre-reservado
+        }
+
+        auto start = chrono::high_resolution_clock::now(); // Inicia el cronómetro
+
+        timSort(array, n); // Ordena el arreglo
+
+        auto end = chrono::high_resolution_clock::now(); // Detiene el cronómetro
+        chrono::duration<double, milli> elapsed = end - start; // Calcula el tiempo transcurrido
+
+        outputFile << n << " " << elapsed.count() << endl; // Escribe el resultado en el archivo de salida
+    }
+
+    inputFile.close();
+    outputFile.close();
+
+    return 0;
+}

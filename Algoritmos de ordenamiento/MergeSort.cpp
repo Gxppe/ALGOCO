@@ -62,31 +62,10 @@ void mergeSort(vector<int>& array, int const begin, int const end) {
     merge(array, begin, mid, end); // Fusiona las dos mitades ordenadas
 }
 
-vector<int> read_input(const string& file_path, int& size) {
-    ifstream file(file_path);
-    vector<int> numbers;
-    if (file.is_open()) {
-        string line;
-        getline(file, line);  // Leer el tamaño
-        size = stoi(line);
-
-        while (getline(file, line)) {
-            istringstream iss(line);
-            int number;
-            while (iss >> number) {
-                numbers.push_back(number);
-            }
-        }
-        file.close();
-    } else {
-        cerr << "No se pudo abrir el archivo." << endl;
-    }
-    return numbers;
-}
 
 int main() {
-    ifstream inputFile("Datasets/Random_sorted.txt"); // Asegúrate de que el archivo 'input.txt' está en el directorio correcto
-    ofstream outputFile("Tiempos Registrados/Random_sorted_insertion_time.txt");
+    ifstream inputFile("/home/gxuseppe/Tareasolol/ALGOCO/Datasets/Middle_sorted_sorted_70.txt"); // Asegúrate de que el archivo 'input.txt' está en el directorio correcto
+    ofstream outputFile("Tiempos Registrados/Random_sorted_merge_time_70.txt");
 
     if (!inputFile.is_open() || !outputFile.is_open()) {
         cerr << "Error al abrir los archivos." << endl;
@@ -103,7 +82,7 @@ int main() {
 
         auto start = chrono::high_resolution_clock::now(); // Inicia el cronómetro
 
-        sort(array.begin(), array.end()); // Ordena el arreglo
+        mergeSort(array, 0, n - 1); // Ordena el arreglo
 
         auto end = chrono::high_resolution_clock::now(); // Detiene el cronómetro
         chrono::duration<double, milli> elapsed = end - start; // Calcula el tiempo transcurrido

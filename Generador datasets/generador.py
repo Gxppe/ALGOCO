@@ -13,15 +13,12 @@ def generate_middle_sorted_list(size, sorted_percentage):
     return lista
 
 
-lista = generate_random_list(10**4, 10**4)
-
-
 inicio = time.time()
-with open('/home/gxuseppe/Tareasolol/ALGOCO/Datasets/Middle_sorted_sorted.txt', 'w') as archivo:
+with open('/home/gxuseppe/Tareasolol/ALGOCO/Datasets/Middle_sorted_sorted_70.txt', 'w') as archivo:
     for i in range(100):
         tamano= random.randint(1, 10**5)
         porcentaje= random.randint(1, 80)
-        lista = generate_middle_sorted_list(tamano, porcentaje/100)
+        lista = generate_middle_sorted_list(tamano, 0.70)
         archivo.write(str(tamano) + '\n')
         for elemento in lista:
             archivo.write(str(elemento)+ ' ')
