@@ -1,1 +1,10 @@
-.vscode
+# Ignorar la carpeta Graficos
+Graficos/
+
+# Ignorar la carpeta Generador de datasets
+Generador\ datasets/
+
+# Ignorar la carpeta Compilados
+Compilados/
+
+.vscode/
