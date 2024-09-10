@@ -281,9 +281,9 @@ lld** leer_matriz(ifstream &archivo, int &n, int &m) {
 }
 
 int main() {
-    ifstream inputFileA("/home/gxuseppe/Tareasolol/ALGOCO/Datasets/Cuadrada_A.txt");
-    ifstream inputFileB("/home/gxuseppe/Tareasolol/ALGOCO/Datasets/Cuadrada_B.txt");
-    ofstream outputFile("Tiempos Registrados/Cuadrada_strassens_time.txt");
+    ifstream inputFileA("/home/gxuseppe/Tareasolol/ALGOCO/Datasets/Cuadradas_2_A.txt");  // Archivo de entrada para las matrices A
+    ifstream inputFileB("/home/gxuseppe/Tareasolol/ALGOCO/Datasets/Cuadradas_2_B.txt");  // Archivo de entrada para las matrices B
+    ofstream outputFile("Tiempos Registrados/Cuadradas_2_strassens_time.txt");  // Archivo de salida para los tiempos
 
     if (!inputFileA.is_open() || !inputFileB.is_open() || !outputFile.is_open()) {
         cerr << "Error al abrir los archivos." << endl;

@@ -30,9 +30,9 @@ void mulMat(const vector<vector<int>>& matrizA, const vector<vector<int>>& matri
 }
 
 int main() {
-    ifstream inputFileA("/home/gxuseppe/Tareasolol/ALGOCO/Datasets/Rectangular_A.txt");  // Archivo de entrada para las matrices A
-    ifstream inputFileB("/home/gxuseppe/Tareasolol/ALGOCO/Datasets/Rectangular_B.txt");  // Archivo de entrada para las matrices B
-    ofstream outputFile("Tiempos Registrados/Rectangular_simple_time.txt");  // Archivo de salida para los tiempos
+    ifstream inputFileA("/home/gxuseppe/Tareasolol/ALGOCO/Datasets/Cuadradas_2_A.txt");  // Archivo de entrada para las matrices A
+    ifstream inputFileB("/home/gxuseppe/Tareasolol/ALGOCO/Datasets/Cuadradas_2_B.txt");  // Archivo de entrada para las matrices B
+    ofstream outputFile("Tiempos Registrados/Cuadradas_2_simple_time.txt");  // Archivo de salida para los tiempos
 
     // Verificar si los archivos se abrieron correctamente
     if (!inputFileA.is_open() || !inputFileB.is_open() || !outputFile.is_open()) {
