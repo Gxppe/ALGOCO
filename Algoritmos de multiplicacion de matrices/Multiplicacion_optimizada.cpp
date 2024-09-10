@@ -40,9 +40,9 @@ void mulMat(const vector<vector<int>>& matrizA, const vector<vector<int>>& matri
 }
 
 int main() {
-    ifstream inputFileA("/home/gxuseppe/Tareasolol/ALGOCO/Datasets/Cuadradas_2_A.txt");  // Archivo de entrada para las matrices A
-    ifstream inputFileB("/home/gxuseppe/Tareasolol/ALGOCO/Datasets/Cuadradas_2_B.txt");  // Archivo de entrada para las matrices B
-    ofstream outputFile("Tiempos Registrados/Cuadradas_2_optimizado_time.txt");  // Archivo de salida para los tiempos
+    ifstream inputFileA("/home/gxuseppe/Codigo/ALGOCO/Datasets/Rectangular_A.txt");  // Archivo de entrada para las matrices A
+    ifstream inputFileB("/home/gxuseppe/Codigo/ALGOCO/Datasets/Rectangular_B.txt");  // Archivo de entrada para las matrices B
+    ofstream outputFile("Tiempos Registrados/Rectangular_optimizado_time.txt");  // Archivo de salida para los tiempos
 
     // Verificar si los archivos se abrieron correctamente
     if (!inputFileA.is_open() || !inputFileB.is_open() || !outputFile.is_open()) {
@@ -74,20 +74,23 @@ int main() {
             continue;  // Saltar a la siguiente iteración si no son multiplicables
         }
 
+        // Transponer la matriz B
+        vector<vector<int>> matrizB_transpuesta = transponer(matrizB);
+
         // Inicializar la matriz de resultado
         vector<vector<int>> resultado;
 
         // Medir el tiempo de la multiplicación
         auto start = chrono::high_resolution_clock::now();  // Iniciar el cronómetro
-        mulMat(matrizA, matrizB, resultado);  // Multiplicar las matrices
+        mulMat(matrizA, matrizB_transpuesta, resultado);  // Multiplicar las matrices
         auto end = chrono::high_resolution_clock::now();  // Detener el cronómetro
         chrono::duration<double, milli> elapsed = end - start;  // Calcular el tiempo transcurrido
 
-        // Calcular el área de la matriz resultante (filas * columnas)
-        int area = nA * mB;
+        // Calcular el volumen de la matriz resultante (N * M * P)
+        int volumen = nA * mA * mB;
 
         // Guardar los resultados en el archivo de salida
-        outputFile << area << " " << elapsed.count() << endl;
+        outputFile << volumen << " " << elapsed.count() << endl;
     }
 
     // Cerrar los archivos
