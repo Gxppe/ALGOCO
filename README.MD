@@ -13,3 +13,5 @@ Los algortimos utilizados fueron extraidos y adaptados desde Geeks For Geeks:
 [Algoritmo cubico simple](https://www.geeksforgeeks.org/c-program-multiply-two-matrices/)<br>
 [Algoritmo cubico optimizado(se agrego unicamente una funcion que traspone)](https://www.geeksforgeeks.org/c-program-multiply-two-matrices/)<br>
 [Algoritmo de Strassens](https://www.geeksforgeeks.org/strassens-matrix-multiplication-algorithm-implementation/)<br>
+
+Las modificaciones realizadas fueron respecta a las estructuras de datos utilizadas sobre los algortimos mas no su funcionamiento.
